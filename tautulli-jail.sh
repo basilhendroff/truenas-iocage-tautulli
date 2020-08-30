@@ -115,7 +115,7 @@ rm /tmp/pkg.json
 #
 #####
 
-mkdir -p "${DATA_PATH}"
+mkdir -p "${CONFIG_PATH}"
 #chown -R 817:817 "${DATA_PATH}"
 
 #iocage exec "${JAIL_NAME}" mkdir -p /tmp/includes
@@ -135,13 +135,11 @@ mkdir -p "${DATA_PATH}"
 #
 #####
 
-iocage exec "${JAIL_NAME}" mkdir -p /repo
-if ! iocage exec "${JAIL_NAME}" git clone https://github.com/Tautulli/Tautulli.git /repo
+if ! iocage exec "${JAIL_NAME}" cd /usr/local/share && git init && git remote add origin https://github.com/Tautulli/Tautulli.git && git fetch && git checkout -t origin/master
 then
 	echo "Failed to clone Tautulli"
 	exit 1
 fi
-ln -sfn /repo /usr/local/share
 
 # Copy pre-written config files
 #iocage exec "${JAIL_NAME}" cp /tmp/includes/rslsync /usr/local/etc/rc.d/
