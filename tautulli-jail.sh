@@ -135,7 +135,7 @@ mkdir -p "${CONFIG_PATH}"
 #
 #####
 
-if ! iocage exec "${JAIL_NAME}" cd /usr/local/share && git init && git remote add origin https://github.com/Tautulli/Tautulli.git && git fetch && git checkout -t origin/master
+if ! iocage exec "${JAIL_NAME}" "cd /usr/local/share && git init && git remote add origin https://github.com/Tautulli/Tautulli.git && git fetch && git checkout -t origin/master"
 then
 	echo "Failed to clone Tautulli"
 	exit 1
