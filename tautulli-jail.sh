@@ -136,7 +136,7 @@ mkdir -p "${DATA_PATH}"
 #####
 
 
-if ! iocage exec "${JAIL_NAME}" git clone https://github.com/Tautulli/Tautulli.git /usr/local/share
+if ! iocage exec "${JAIL_NAME}" cd /usr/local/share && git clone https://github.com/Tautulli/Tautulli.git
 then
 	echo "Failed to clone Tautulli"
 	exit 1
