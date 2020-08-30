@@ -138,7 +138,7 @@ iocage exec "${JAIL_NAME}" chown -R tautulli:tautulli /usr/local/share/Tautulli 
 iocage exec "${JAIL_NAME}" cp /usr/local/share/Tautulli/init-scripts/init.freenas /usr/local/etc/rc.d/tautulli
 iocage exec "${JAIL_NAME}" chmod u+x /usr/local/etc/rc.d/tautulli
 
-iocage exec "${JAIL_NAME}" sysrc rslsync_enable="YES"
+iocage exec "${JAIL_NAME}" sysrc tautulli_enable="YES"
 iocage exec "${JAIL_NAME}" sysrc "tautulli_flags=--datadir /config"
 
 iocage restart "${JAIL_NAME}"
