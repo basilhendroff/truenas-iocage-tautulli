@@ -96,7 +96,7 @@ fi
 cat <<__EOF__ >/tmp/pkg.json
 	{
   "pkgs":[
-  "nano","bash","ca_root_nss","python","py37-setuptools","py37-sqlite3","py37-openssl","py37-pycryptodomex","security/ca_root_nss","git-lite"
+  "nano","bash","python","py37-setuptools","py37-sqlite3","py37-openssl","py37-pycryptodomex","security/ca_root_nss","git-lite"
   ]
 }
 __EOF__
