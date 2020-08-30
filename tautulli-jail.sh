@@ -23,7 +23,7 @@ VNET="on"
 POOL_PATH=""
 JAIL_NAME="tautulli"
 CONFIG_NAME="tautulli-config"
-DATA_PATH=""
+CONFIG_PATH=""
 
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "${SCRIPT}")
@@ -63,14 +63,14 @@ if [ -z "${POOL_PATH}" ]; then
   echo 'POOL_PATH defaulting to '$POOL_PATH
 fi
 
-# If DATA_PATH wasn't set in rslsync-config, set it.
-if [ -z "${DATA_PATH}" ]; then
-  DATA_PATH="${POOL_PATH}"/apps/tautulli/
+# If CONFIG_PATH wasn't set in rslsync-config, set it.
+if [ -z "${CONFIG_PATH}" ]; then
+  CONFIG_PATH="${POOL_PATH}"/apps/tautulli/
 fi
 
-if [ "${DATA_PATH}" = "${POOL_PATH}" ]
+if [ "${CONFIG_PATH}" = "${POOL_PATH}" ]
 then
-  echo "DATA_PATH must be different from POOL_PATH!"
+  echo "CONFIG_PATH must be different from POOL_PATH!"
   exit 1
 fi
 
@@ -135,12 +135,13 @@ mkdir -p "${DATA_PATH}"
 #
 #####
 
-
-if ! iocage exec "${JAIL_NAME}" cd /usr/local/share && git clone https://github.com/Tautulli/Tautulli.git
+iocage exec "${JAIL_NAME}" mkdir -p /repo
+if ! iocage exec "${JAIL_NAME}" git clone https://github.com/Tautulli/Tautulli.git /repo
 then
 	echo "Failed to clone Tautulli"
 	exit 1
 fi
+ln -sfn /repo /usr/local/share
 
 # Copy pre-written config files
 #iocage exec "${JAIL_NAME}" cp /tmp/includes/rslsync /usr/local/etc/rc.d/
