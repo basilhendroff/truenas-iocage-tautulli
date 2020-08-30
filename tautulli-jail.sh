@@ -63,7 +63,7 @@ if [ -z "${POOL_PATH}" ]; then
   echo 'POOL_PATH defaulting to '$POOL_PATH
 fi
 
-# If CONFIG_PATH wasn't set in rslsync-config, set it.
+# If CONFIG_PATH wasn't set in tautulli-config, set it.
 if [ -z "${CONFIG_PATH}" ]; then
   CONFIG_PATH="${POOL_PATH}"/apps/tautulli/
 fi
@@ -116,18 +116,10 @@ rm /tmp/pkg.json
 #####
 
 mkdir -p "${CONFIG_PATH}"
-#chown -R 817:817 "${DATA_PATH}"
+chown -R 109:109 "${CONFIG_PATH}"
 
-#iocage exec "${JAIL_NAME}" mkdir -p /tmp/includes
-#iocage exec "${JAIL_NAME}" mkdir -p /var/db/rslsync
-#iocage exec "${JAIL_NAME}" mkdir -p /usr/local/etc/rc.d
-#iocage exec "${JAIL_NAME}" mkdir -p /usr/local/bin
-
-#iocage exec "${JAIL_NAME}" "pw user add rslsync -c rslsync -u 817 -d /nonexistent -s /usr/bin/nologin"
-
-#iocage fstab -a "${JAIL_NAME}" "${INCLUDES_PATH}" /tmp/includes nullfs rw 0 0
-#iocage fstab -a "${JAIL_NAME}" "${CONFIG_PATH}" /var/db/rslsync nullfs rw 0 0
-#iocage fstab -a "${JAIL_NAME}" "${DATA_PATH}" /media nullfs rw 0 0
+iocage exec "${JAIL_NAME}" mkdir -p /config
+iocage fstab -a "${JAIL_NAME}" "${CONFIG_PATH}" /config nullfs rw 0 0
 
 #####
 #
@@ -135,21 +127,18 @@ mkdir -p "${CONFIG_PATH}"
 #
 #####
 
-if ! iocage exec "${JAIL_NAME}" "cd /usr/local/share && git init && git remote add origin https://github.com/Tautulli/Tautulli.git && git fetch && git checkout -t origin/master"
+#if ! iocage exec "${JAIL_NAME}" "cd /usr/local/share && git init && git remote add origin https://github.com/Tautulli/Tautulli.git && git fetch && git checkout -t origin/master"
+if ! iocage exec "${JAIL_NAME}" git clone https://github.com/Tautulli/Tautulli.git /usr/local/share/Tautulli
 then
 	echo "Failed to clone Tautulli"
 	exit 1
 fi
+iocage exec "${JAIL_NAME}" "pw user add tautulli -c tautulli -u 109 -d /nonexistent -s /usr/bin/nologin"
+iocage exec "${JAIL_NAME}" chown -R tautulli:tautulli /usr/local/share/Tautulli /config
+iocage exec "${JAIL_NAME}" cp /usr/local/share/Tautulli/init-scripts/init.freenas /usr/local/etc/rc.d/tautulli
+iocage exec "${JAIL_NAME}" chmod u+x /usr/local/etc/rc.d/tautulli
 
-# Copy pre-written config files
-#iocage exec "${JAIL_NAME}" cp /tmp/includes/rslsync /usr/local/etc/rc.d/
-#iocage exec "${JAIL_NAME}" cp /tmp/includes/rslsync.conf.sample /usr/local/etc/
-#iocage exec "${JAIL_NAME}" cp /tmp/includes/rslsync.conf.sample /usr/local/etc/rslsync.conf
+iocage exec "${JAIL_NAME}" sysrc rslsync_enable="YES"
+iocage exec "${JAIL_NAME}" sysrc "tautulli_flags=--datadir /config"
 
-#iocage exec "${JAIL_NAME}" sysrc rslsync_enable="YES"
-
-#iocage restart "${JAIL_NAME}"
-
-# Don't need /mnt/includes any more, so unmount it
-#iocage fstab -r "${JAIL_NAME}" "${INCLUDES_PATH}" /tmp/includes nullfs rw 0 0
-#iocage exec "${JAIL_NAME}" rmdir /tmp/includes
+iocage restart "${JAIL_NAME}"
