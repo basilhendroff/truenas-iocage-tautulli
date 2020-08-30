@@ -116,7 +116,7 @@ rm /tmp/pkg.json
 #####
 
 mkdir -p "${DATA_PATH}"
-chown -R 817:817 "${DATA_PATH}"
+#chown -R 817:817 "${DATA_PATH}"
 
 #iocage exec "${JAIL_NAME}" mkdir -p /tmp/includes
 #iocage exec "${JAIL_NAME}" mkdir -p /var/db/rslsync
