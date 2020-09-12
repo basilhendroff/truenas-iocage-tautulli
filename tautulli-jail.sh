@@ -127,7 +127,6 @@ iocage fstab -a "${JAIL_NAME}" "${CONFIG_PATH}" /config nullfs rw 0 0
 #
 #####
 
-#if ! iocage exec "${JAIL_NAME}" "cd /usr/local/share && git init && git remote add origin https://github.com/Tautulli/Tautulli.git && git fetch && git checkout -t origin/master"
 if ! iocage exec "${JAIL_NAME}" git clone https://github.com/Tautulli/Tautulli.git /usr/local/share/Tautulli
 then
 	echo "Failed to clone Tautulli"
