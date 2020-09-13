@@ -23,7 +23,7 @@ VNET="on"
 POOL_PATH=""
 JAIL_NAME="tautulli"
 CONFIG_NAME="tautulli-config"
-CONFIG_PATH=""
+DATA_PATH=""
 
 SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "${SCRIPT}")
@@ -63,14 +63,14 @@ if [ -z "${POOL_PATH}" ]; then
   echo 'POOL_PATH defaulting to '$POOL_PATH
 fi
 
-# If CONFIG_PATH wasn't set in tautulli-config, set it.
-if [ -z "${CONFIG_PATH}" ]; then
-  CONFIG_PATH="${POOL_PATH}"/apps/tautulli/
+# If DATA_PATH wasn't set in tautulli-config, set it.
+if [ -z "${DATA_PATH}" ]; then
+  DATA_PATH="${POOL_PATH}"/apps/tautulli/
 fi
 
-if [ "${CONFIG_PATH}" = "${POOL_PATH}" ]
+if [ "${DATA_PATH}" = "${POOL_PATH}" ]
 then
-  echo "CONFIG_PATH must be different from POOL_PATH!"
+  echo "DATA_PATH must be different from POOL_PATH!"
   exit 1
 fi
 
@@ -115,11 +115,11 @@ rm /tmp/pkg.json
 #
 #####
 
-mkdir -p "${CONFIG_PATH}"
-chown -R 109:109 "${CONFIG_PATH}"
+mkdir -p "${DATA_PATH}"
+chown -R 109:109 "${DATA_PATH}"
 
-iocage exec "${JAIL_NAME}" mkdir -p /config
-iocage fstab -a "${JAIL_NAME}" "${CONFIG_PATH}" /config nullfs rw 0 0
+iocage exec "${JAIL_NAME}" mkdir -p /data
+iocage fstab -a "${JAIL_NAME}" "${DATA_PATH}" /data nullfs rw 0 0
 
 #####
 #
@@ -133,11 +133,11 @@ then
 	exit 1
 fi
 iocage exec "${JAIL_NAME}" "pw user add tautulli -c tautulli -u 109 -d /nonexistent -s /usr/bin/nologin"
-iocage exec "${JAIL_NAME}" chown -R tautulli:tautulli /usr/local/share/Tautulli /config
+iocage exec "${JAIL_NAME}" chown -R tautulli:tautulli /usr/local/share/Tautulli /data
 iocage exec "${JAIL_NAME}" cp /usr/local/share/Tautulli/init-scripts/init.freenas /usr/local/etc/rc.d/tautulli
 iocage exec "${JAIL_NAME}" chmod u+x /usr/local/etc/rc.d/tautulli
 
 iocage exec "${JAIL_NAME}" sysrc tautulli_enable="YES"
-iocage exec "${JAIL_NAME}" sysrc "tautulli_flags=--datadir /config"
+iocage exec "${JAIL_NAME}" sysrc "tautulli_flags=--datadir /data"
 
 iocage restart "${JAIL_NAME}"
