@@ -47,4 +47,7 @@ There are several support streams for Tautulli including the Tautulli website, R
 
 Questions or issues about this resource can be raised in [this forum thread](https://www.ixsystems.com/community/threads/scripted-tautulli-installation.87434/).  
 
+## Disclaimer
+It's your data. It's your responsibility. This resource is provided as a community service. Use it at your own risk.
+
 
