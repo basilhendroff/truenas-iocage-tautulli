@@ -43,7 +43,7 @@ To test your installation, enter your Tautulli jail IP address and port 8181 e.g
 
 ## Support and Discussion
 
-There are several support streams for Tautulli including the Tautulli website, Reddit, Discord and Plex forums. They call all be accessed from the [Tautulli support portal](https://tautulli.com/#support).
+There are several support streams for Tautulli including the Tautulli website, Reddit, Discord and Plex forums. They can all be accessed from the [Tautulli support portal](https://tautulli.com/#support).
 
 Questions or issues about this resource can be raised in [this forum thread](https://www.ixsystems.com/community/threads/scripted-tautulli-installation.87434/).  
 
