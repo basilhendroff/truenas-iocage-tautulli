@@ -2,7 +2,7 @@
 This is a simple script to automate the installation of Tautulli in a TrueNAS jail. It will create a jail, install the latest version of Tautulli for FreeBSD from [tautulli.com](https://www.tautulli.com), and store its data files outside the jail, so it will not be lost in the event you need to rebuild the jail.  
 
 ## Status
-This script will work with FreeNAS 11.3, and TrueNAS CORE 12 and later. Due to the EOL status of FreeBSD 11.2, it is unlikely to work reliably with earlier releases of FreeNAS.
+This script will work with FreeNAS 11.3, and TrueNAS CORE 12 or later. Due to the EOL status of FreeBSD 11.2, it is unlikely to work reliably with earlier releases of FreeNAS.
 
 ## Usage
 A python based web application for monitoring, analytics and notifications for Plex Media Server
