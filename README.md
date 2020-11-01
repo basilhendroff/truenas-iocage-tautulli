@@ -1,8 +1,8 @@
-# freenas-iocage-tautulli
-This is a simple script to automate the installation of Tautulli in a FreeNAS jail. It will create a jail, install the latest version of Tautulli for FreeBSD from [tautulli.com](https://www.tautulli.com), and store its data files outside the jail, so it will not be lost in the event you need to rebuild the jail.  
+# truenas-iocage-tautulli
+This is a simple script to automate the installation of Tautulli in a TrueNAS jail. It will create a jail, install the latest version of Tautulli for FreeBSD from [tautulli.com](https://www.tautulli.com), and store its data files outside the jail, so it will not be lost in the event you need to rebuild the jail.  
 
 ## Status
-This script will work with FreeNAS 11.3, and it should also work with TrueNAS CORE 12.0. Due to the EOL status of FreeBSD 11.2, it is unlikely to work reliably with earlier releases of FreeNAS.
+This script will work with FreeNAS 11.3, and TrueNAS CORE 12 and later. Due to the EOL status of FreeBSD 11.2, it is unlikely to work reliably with earlier releases of FreeNAS.
 
 ## Usage
 A python based web application for monitoring, analytics and notifications for Plex Media Server
@@ -13,7 +13,7 @@ Although not required, it's recommended to create a Dataset named `apps` with a 
 
 ### Installation
 
-Download the repository to a convenient directory on your FreeNAS system by changing to that directory and running `git clone https://github.com/basilhendroff/freenas-iocage-tautulli`. Then change into the new freenas-iocage-tautulli directory and create a file called tautulli-config with your favorite text editor. In its minimal form, it would look like this:
+Download the repository to a convenient directory on your TrueNAS system by changing to that directory and running `git clone https://github.com/basilhendroff/truenas-iocage-tautulli`. Then change into the new truenas-iocage-tautulli directory and create a file called tautulli-config with your favorite text editor. In its minimal form, it would look like this:
 
 ```
 JAIL_IP="10.1.1.3"
